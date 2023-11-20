@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Registrar una persona</h1>
+    <section>
+        <form action="{% url 'register_person' %}" method="POST">
+            {% csrf_token %}
+            <label>
+                <input type="text" name="person_name">
+            </label>
+            <input type="submit" value="Guardar">
+        </form>
+    </section>
+{% endblock %}

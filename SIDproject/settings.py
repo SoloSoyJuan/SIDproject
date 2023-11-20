@@ -83,7 +83,7 @@ DATABASES = {
        'HOST': 'localhost',
        'PORT': '5432',
     },
-    'mongo_db': {
+    'mongodb': {
         'ENGINE': 'djongo',
         'NAME': 'Parcial3',
         'CLIENT': {

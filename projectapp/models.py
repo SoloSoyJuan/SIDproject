@@ -42,3 +42,7 @@ class ORDER_DETAIL (models.Model):
 
     class Meta:
         unique_together = (('orderNumber', 'productId'),)
+
+
+class Person(models.Model):
+    name = models.CharField(max_length=255)

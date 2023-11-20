@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>HOME</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>Wellcome to ABC Electronics</h1>
     <a href="{% url 'registerCustomers' %}">Register New Customer</a>
-
-</body>
-</html>
+{% endblock %}
