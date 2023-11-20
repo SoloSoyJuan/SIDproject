@@ -25,7 +25,7 @@ class CUSTOMERS (models.Model):
     cellPhone = models.CharField(max_length=13)
 
 class ORDERS (models.Model):
-    orderNumber = models.IntegerField(primary_key=True, max_length=5)
+    orderNumber = models.IntegerField(primary_key=True)
     customerid = models.ForeignKey(CUSTOMERS, on_delete=models.CASCADE)
     orderDate = models.DateField()
     shippedDate = models.DateField()
