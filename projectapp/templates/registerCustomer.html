@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>regusterCustomer</title>
+</head>
+<body>
+
+    <a href="{% url 'home' %}">Home</a>
+    
+    <h1>REGISTER A NEW CUSTOMER</h1>
+            {{error}}
+
+            <form action="/registerCustomer/" method="POST" >
+                {% csrf_token %}
+                {{customers.as_p}}
+                <button type="submit">
+                    REGISTER
+                </button>
+            </form>
+
+</body>
+</html>
