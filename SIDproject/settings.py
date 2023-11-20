@@ -76,12 +76,20 @@ WSGI_APPLICATION = 'SIDproject.wsgi.application'
 
 DATABASES = {
     'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'Parcial3',
+       'USER': 'postgres',
+       'PASSWORD': 'admin',
+       'HOST': 'localhost',
+       'PORT': '5432',
+    },
+    'mongo_db': {
         'ENGINE': 'djongo',
         'NAME': 'Parcial3',
         'CLIENT': {
-            'host': 'localhost',
-            'port': 27017,
-        },
+          'host': 'localhost',
+          'port': 27017,
+        }
     }
 }
 
