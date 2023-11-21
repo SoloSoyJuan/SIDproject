@@ -72,6 +72,21 @@ def add_more_data_customer(request):
                 'mun_or_ci': request.POST['mun_or_ci'],
                 'dep_or_state': request.POST['dep_or_sta'],
                 'country': request.POST['country']
+            },
+            'place_of_living':{
+                'mun_or_ci': request.POST['mun_or_ci_1'],
+                'dep_or_state': request.POST['dep_or_sta_1'],
+                'country': request.POST['country_1'],
+                'post_code':request.POST['post_code']
+            },
+            'hobbies': request.POST['hobbie'],
+            'sports': request.POST['sport'],
+            'categories':request.POST['categories'],
+            'civil_status':{
+                'status': request.POST['civil_status'],
+                'date': request.POST['date_of_change'],
+                'couple_name': request.POST['couple_name'],
+                'couple_id': request.POST['couple_id']
             }
         }
         result = my_collection.update_one(criterio, {'$set': new_data})
