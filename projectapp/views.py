@@ -28,5 +28,21 @@ def home(request):
     return render(request, 'home.html')
 
 
+def customers(request):
+    return render(request, 'customers.html')
+
+
+def orders(request):
+    return render(request, 'orders.html')
+
+
+def products(request):
+    return render(request, 'products.html')
+
+
+def categories(request):
+    return render(request, 'categories.html')
+
+
 def render_register_person(request):
     return render(request, 'register_person.html')
