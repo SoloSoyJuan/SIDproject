@@ -2,9 +2,25 @@
 
 {% block content %}
     <header class="container">
-        <h1 class="text-center">Categorias</h1>
+        <h1 class="text-center">Categorías</h1>
     </header>
     <main>
-
+        <section class="container w-50 mb-2">
+            <a class="btn btn-primary" href="{% url 'view_add_category' %}">Nueva categoría</a>
+        </section>
+        <section class="container w-50">
+            {% if categories %}
+                <ul class="list-group">
+                    {% for category in categories %}
+                        <li class="list-group-item text-center border border-black">
+                            <b>Código:</b> {{ category.code }} <span>|</span>
+                            <b>Descripción:</b> {{ category.description }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay categorías registradas.</p>
+            {% endif %}
+        </section>
     </main>
 {% endblock %}

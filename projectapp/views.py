@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import CustomerForm
+from .models import CategoryProduct
 from pymongo import MongoClient
 
 # Create your views here.
@@ -41,7 +42,22 @@ def products(request):
 
 
 def categories(request):
-    return render(request, 'categories.html')
+    categories_p = CategoryProduct.objects.all()
+    return render(request, 'categories.html', {
+        'categories': categories_p
+    })
+
+
+def render_add_category(request):
+    return render(request, 'add_category.html')
+
+
+def add_category(request):
+    if request.method == 'POST':
+        code = request.POST['code']
+        description = request.POST['description']
+        CategoryProduct.objects.create(code=code, description=description)
+        return redirect('categories')
 
 
 def render_register_person(request):

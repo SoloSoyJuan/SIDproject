@@ -1,11 +1,11 @@
 from django import forms
-from .models import CUSTOMERS
+from .models import Customers
 
 
 class CustomerForm(forms. ModelForm):
 
     class Meta:
-        model=CUSTOMERS
+        model=Customers
         fields=['customerId', 
                 'firstName', 
                 'lastName', 

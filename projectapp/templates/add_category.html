@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header class="container-fluid w-50 mx-auto">
+        <h1 class="mt-2 text-center">Registro de categoría</h1>
+    </header>
+	<main class="container-fluid mt-3 w-50">
+        <form method="POST" action="{% url 'add_category' %}" class="border border-black">
+            {% csrf_token %}
+            <fieldset class="p-2">
+                <legend class="text-center">Datos categoría:</legend>
+                <div class="mb-2">
+                    <label for="code">Código:<br>
+                        <input type="text" name="code">
+                    </label>
+                </div>
+                <div>
+                    <label for="description">Descripción:<br>
+                        <textarea name="description" rows="5" cols="50"></textarea>
+                    </label>
+                </div>
+                <input type="submit" value="Registrar">
+            </fieldset>
+        </form>
+    </main>
+{% endblock %}
