@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header class="container-fluid w-50 mx-auto">
+        <h1 class="mt-2 text-center">Registro de pedidos</h1>
+    </header>
+    <main class="container-fluid mt-3 w-50">
+        {% if my_customers %}
+            <form method="POST" action="" class="border border-black">
+                {% csrf_token %}
+                <fieldset class="p-2">
+                    <legend>Datos pedido:</legend>
+                    <hr>
+                    <div>
+                        <label for="o_id">Número de pedido:<br>
+                            <input type="number" id="o_id" name="order_id" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="c_ids">Choose a car:</label><br>
+                        <select id="c_ids" name="customer_id" size="5" style="width: 350px">
+                            {% for customer in my_customers %}
+                                <option value="{{ customer.customerId }}">
+                                    {{ customer.customerId }}<span> | </span>{{ customer.firstName }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="o_date">Fecha del pedido:<br>
+                            <input type="date" id="o_date" name="order_date" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="s_date">Fecha de envío:<br>
+                            <input type="date" id="s_date" name="shipped_date" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="p_date">Fecha de pago:<br>
+                            <input type="date" id="p_date" name="payment_date" required>
+                        </label>
+                    </div>
+                    <input class="mt-2 btn btn-success" type="submit" value="Registrar">
+                </fieldset>
+            </form>
+        {% else %}
+            <p>No hay clientes registrados para hacer el pedido.</p>
+        {% endif %}
+    </main>
+{% endblock %}

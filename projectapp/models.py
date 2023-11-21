@@ -16,14 +16,14 @@ class Products (models.Model):
 
 
 class Customers (models.Model):
-    customerId = models.CharField(primary_key=True, max_length=5)
+    customerId = models.CharField(primary_key=True, max_length=255)
     firstName = models.CharField(max_length=50)
     lastName = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
+    address = models.CharField(max_length=255)
     dateOfBirth = models.DateField()
     email = models.EmailField()
-    homePhone = models.CharField(max_length=13)
-    cellPhone = models.CharField(max_length=13)
+    homePhone = models.CharField(max_length=50)
+    cellPhone = models.CharField(max_length=50)
 
 
 class Orders (models.Model):

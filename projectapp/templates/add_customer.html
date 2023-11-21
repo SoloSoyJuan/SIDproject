@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header class="container-fluid w-50 mx-auto">
+        <h1 class="mt-2 text-center">Registro de cliente</h1>
+    </header>
+    <main class="container-fluid mt-3 w-50">
+        <form method="POST" action="{% url 'add_customer' %}" class="border border-black">
+            {% csrf_token %}
+            <fieldset class="p-2">
+                <legend>Datos cliente:</legend>
+                <hr>
+                <div>
+                    <label for="id">Número identificación:<br>
+                        <input type="text" id="id" name="id" required>
+                    </label>
+                </div>
+                <div>
+                    <label for="name">Nombre:<br>
+                        <input type="text" id="name" name="first_name" size="40" required>
+                    </label>
+                </div>
+                <div>
+                    <label for="lastname">Apellido:<br>
+                        <input type="text" id="lastname" name="last_name" size="40" required>
+                    </label>
+                </div>
+                <div>
+                    <label for="address">Dirección:<br>
+                        <input type="text" id="address" name="address" size="50" required>
+                    </label>
+                </div>
+                <div>
+                    <label for="date_of_birth">Fecha de nacimiento:<br>
+                        <input type="date" id="date_of_birth" name="date_of_birth" required>
+                    </label>
+                </div>
+                <div>
+                    <label for="email">Correo electrónico:<br>
+                        <input type="email" id="email" name="email" size="40" required>
+                    </label>
+                </div>
+                <div>
+                    <label for="home_phone">Telefono fijo:<br>
+                        <input type="tel" id="home_phone" name="home_phone" required>
+                    </label>
+                </div>
+                <div>
+                    <label for="cellphone">Telefono movil:<br>
+                        <input type="tel" id="cellphone" name="cellphone" required>
+                    </label>
+                </div>
+                <input class="mt-2 btn btn-success" type="submit" value="Registrar">
+            </fieldset>
+        </form>
+    </main>
+{% endblock %}

@@ -8,18 +8,19 @@
         <form method="POST" action="{% url 'add_category' %}" class="border border-black">
             {% csrf_token %}
             <fieldset class="p-2">
-                <legend class="text-center">Datos categoría:</legend>
+                <legend>Datos categoría:</legend>
+                <hr>
                 <div class="mb-2">
                     <label for="code">Código:<br>
-                        <input type="text" name="code">
+                        <input type="text" name="code" id="code">
                     </label>
                 </div>
                 <div>
                     <label for="description">Descripción:<br>
-                        <textarea name="description" rows="5" cols="50"></textarea>
+                        <textarea name="description" id="description" rows="5" cols="50"></textarea>
                     </label>
                 </div>
-                <input type="submit" value="Registrar">
+                <input type="submit" value="Registrar" class="btn btn-success">
             </fieldset>
         </form>
     </main>

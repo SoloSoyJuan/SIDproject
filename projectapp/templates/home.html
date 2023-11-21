@@ -8,15 +8,52 @@
         <section class="container border border-black mb-2">
             <h2>Clientes</h2>
             <div class="mb-2">
-                <a class="btn btn-primary btn-sm">Registrar nuevo</a>
+                <a class="btn btn-primary btn-sm" 
+                   href="{% url 'view_add_customer' %}">
+                    Registrar nuevo</a>
                 <a class="btn btn-primary btn-sm">Registrar datos adicionales</a>
             </div>
-            <!-- Aquí se mostrarán los clientes -->
+            <div>
+                {% if my_customers %}
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Dirección</th>
+                            <th>Fecha de nacimiento</th>
+                            <th>Correo electrónico</th>
+                            <th>Telefono fijo</th>
+                            <th>Telefono celular</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for my_customer in my_customers %}
+                            <tr>
+                                <td>{{ my_customer.customerId }}</td>
+                                <td>{{ my_customer.firstName }}</td>
+                                <td>{{ my_customer.lastName }}</td>
+                                <td>{{ my_customer.address }}</td>
+                                <td>{{ my_customer.dateOfBirth }}</td>
+                                <td>{{ my_customer.email }}</td>
+                                <td>{{ my_customer.homePhone }}</td>
+                                <td>{{ my_customer.cellPhone }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay clientes registrados.</p>
+                {% endif %}
+            </div>
         </section>
         <section class="container border border-black mb-2">
             <h2>Pedidos</h2>
             <div class="mb-2">
-                <a class="btn btn-primary btn-sm">Registrar nuevo</a>
+                <a class="btn btn-primary btn-sm"
+                   href="{% url 'view_add_order' %}">
+                    Registrar nuevo</a>
             </div>
             <!-- Aquí se mostrarán los pedidos -->
         </section>

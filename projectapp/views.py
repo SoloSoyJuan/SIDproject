@@ -1,40 +1,70 @@
 from django.shortcuts import render, redirect
-from .forms import CustomerForm
-from .models import CategoryProduct
+from .models import CategoryProduct, Customers, Orders
 from pymongo import MongoClient
 
-# Create your views here.
 
-
-def registerCustomer(request):
-    if request.method == 'GET':
-        return render(request, 'registerCustomer.html', {
-            'customers': CustomerForm
-        })
-    else:
-        try:
-            form = CustomerForm(request.POST)
-            obj = form.save(commit=False)
-            obj.save()
-            return redirect('home')
-        except:
-            return render(request, 'registerCustomer.html',
-                          {
-                              'form': CustomerForm,
-                              'error': "Introduce valid data"
-                          })
+def create_customer_document(cid, fname, lname, address, dob, email, hphone, cphone):
+    client = MongoClient('localhost', 27017)
+    db = client['Parcial3']
+    collection = db['test']
+    document = Customers(customerId=cid, firstName=fname, lastName=lname, address=address,
+                         dateOfBirth=dob, email=email, homePhone=hphone, cellPhone=cphone)
+    prepared_doc = document.__dict__
+    prepared_doc.pop('_state')
+    collection.insert_one(prepared_doc)
+    client.close()
 
 
 def home(request):
-    return render(request, 'home.html')
+    all_customers = Customers.objects.all()
+    all_orders = Orders.objects.all()
+    return render(request, 'home.html', {
+        'my_customers': all_customers,
+        'my_orders': all_orders,
+    })
 
 
 def customers(request):
-    return render(request, 'customers.html')
+    all_customers = Customers.objects.all()
+    return render(request, 'customers.html', {
+        'my_customers': all_customers
+    })
+
+
+def render_add_customer(request):
+    return render(request, 'add_customer.html')
+
+
+def add_customer(request):
+    if request.method == 'POST':
+        customer_id = request.POST['id']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        address = request.POST['address']
+        date_of_birth = request.POST['date_of_birth']
+        email = request.POST['email']
+        homephone = request.POST['home_phone']
+        cellphone = request.POST['cellphone']
+        create_customer_document(customer_id, first_name, last_name, address, date_of_birth,
+                                 email, homephone, cellphone)
+        Customers.objects.create(customerId=customer_id, firstName=first_name, lastName=last_name,
+                                 address=address, dateOfBirth=date_of_birth, email=email,
+                                 homePhone=homephone, cellPhone=cellphone)
+        return redirect('customers')
 
 
 def orders(request):
-    return render(request, 'orders.html')
+    all_orders = Orders.objects.all()
+    return render(request, 'orders.html', {
+        'my_orders': all_orders
+    })
+
+
+def render_add_order(request):
+    all_customers = Customers.objects.all()
+    return render(request, 'add_order.html', {
+        'my_customers': all_customers
+    })
 
 
 def products(request):
