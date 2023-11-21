@@ -62,38 +62,75 @@ def add_more_data_customer(request):
     if request.method == 'POST':
         customer_id = request.POST['customer']
         criterio = {'customerId': customer_id}
-        new_data = {
-            'son': {
-                'name': request.POST['full_name'],
-                'date_of_birth': request.POST['dob'],
-                'gender': request.POST['gender']
-            },
-            'place_of_birth': {
-                'mun_or_ci': request.POST['mun_or_ci'],
-                'dep_or_state': request.POST['dep_or_sta'],
-                'country': request.POST['country']
-            },
-            'place_of_living':{
-                'mun_or_ci': request.POST['mun_or_ci_1'],
-                'dep_or_state': request.POST['dep_or_sta_1'],
-                'country': request.POST['country_1'],
-                'post_code':request.POST['post_code']
-            },
-            'hobbies': request.POST['hobbie'],
-            'sports': request.POST['sport'],
-            'categories':request.POST['categories'],
-            'civil_status':{
-                'status': request.POST['civil_status'],
-                'date': request.POST['date_of_change'],
-                'couple_name': request.POST['couple_name'],
-                'couple_id': request.POST['couple_id']
+
+        if request.POST['full_name'] != '':
+            new_data = {
+                'son': {
+                    'name': request.POST['full_name'],
+                    'date_of_birth': request.POST['dob'],
+                    'gender': request.POST['gender']
+                },
+                'place_of_birth': {
+                    'mun_or_ci': request.POST['mun_or_ci'],
+                    'dep_or_state': request.POST['dep_or_sta'],
+                    'country': request.POST['country']
+                },
+                'place_of_living': {
+                    'mun_or_ci': request.POST['mun_or_ci_1'],
+                    'dep_or_state': request.POST['dep_or_sta_1'],
+                    'country': request.POST['country_1'],
+                    'post_code': request.POST['post_code']
+                },
+                'hobbies': request.POST['hobbie'],
+                'sports': request.POST['sport'],
+                'categories': request.POST['categories'],
+                'civil_status': {
+                    'status': request.POST['civil_status'],
+                    'date': request.POST['date_of_change'],
+                    'couple_name': request.POST['couple_name'],
+                    'couple_id': request.POST['couple_id']
+                },
+                'discount': 0.10,
             }
-        }
-        result = my_collection.update_one(criterio, {'$set': new_data})
-        if result.modified_count > 0:
-            print("Datos agregados correctamente al documento")
+            result = my_collection.update_one(criterio, {'$set': new_data})
+            if result.modified_count > 0:
+                print("Datos agregados correctamente al documento")
+            else:
+                print("No se encontró el documento o no se realizaron cambios")
         else:
-            print("No se encontró el documento o no se realizaron cambios")
+            new_data = {
+                'son': {
+                    'name': request.POST['full_name'],
+                    'date_of_birth': request.POST['dob'],
+                    'gender': request.POST['gender']
+                },
+                'place_of_birth': {
+                    'mun_or_ci': request.POST['mun_or_ci'],
+                    'dep_or_state': request.POST['dep_or_sta'],
+                    'country': request.POST['country']
+                },
+                'place_of_living': {
+                    'mun_or_ci': request.POST['mun_or_ci_1'],
+                    'dep_or_state': request.POST['dep_or_sta_1'],
+                    'country': request.POST['country_1'],
+                    'post_code': request.POST['post_code']
+                },
+                'hobbies': request.POST['hobbie'],
+                'sports': request.POST['sport'],
+                'categories': request.POST['categories'],
+                'civil_status': {
+                    'status': request.POST['civil_status'],
+                    'date': request.POST['date_of_change'],
+                    'couple_name': request.POST['couple_name'],
+                    'couple_id': request.POST['couple_id']
+                }
+            }
+            result = my_collection.update_one(criterio, {'$set': new_data})
+            if result.modified_count > 0:
+                print("Datos agregados correctamente al documento")
+            else:
+                print("No se encontró el documento o no se realizaron cambios")
+
         client.close()
         return redirect('customers')
     else:
