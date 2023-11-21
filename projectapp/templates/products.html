@@ -4,7 +4,41 @@
     <header class="container">
         <h1 class="text-center">Productos</h1>
     </header>
-    <main>
-
+    <main class="container">
+        <section class="mb-2">
+            <a class="btn btn-primary" href="">
+                Registrar producto
+            </a>
+        </section>
+        <section class="container">
+            {% if my_products %}
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Categoría</th>
+                        <th>Descripción</th>
+                        <th>Cantidad disponible</th>
+                        <th>Costo</th>
+                        <th>Precio de venta</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for p in my_products %}
+                        <tr>
+                            <td>{{ p.productId }}</td>
+                            <td>{{ p.categoryCode }}</td>
+                            <td>{{ p.description }}</td>
+                            <td>{{ p.quantityAvailable }}</td>
+                            <td>{{ p.Cost }}</td>
+                            <td>{{ p.sellingPrice }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No hay productos registrados.</p>
+            {% endif %}
+        </section>
     </main>
 {% endblock %}

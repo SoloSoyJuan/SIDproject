@@ -55,11 +55,72 @@
                    href="{% url 'view_add_order' %}">
                     Registrar nuevo</a>
             </div>
-            <!-- Aquí se mostrarán los pedidos -->
+            <div>
+                {% if my_orders %}
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Número de pedido</th>
+                            <th>Número de identificación del cliente</th>
+                            <th>Fecha del pedido</th>
+                            <th>Fecha de envió</th>
+                            <th>Fecha de pago</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in my_orders %}
+                            <tr>
+                                <td>{{ order.orderNumber }}</td>
+                                <td>{{ order.customerid }}</td>
+                                <td>{{ order.orderDate }}</td>
+                                <td>{{ order.shippedDate }}</td>
+                                <td>{{ order.paymentDate }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay pedidos registrados.</p>
+                {% endif %}
+            </div>
         </section>
         <section class="container border border-black mb-2">
             <h2>Productos</h2>
-            <!-- Aquí se mostrarán los productos -->
+            <div class="mb-2">
+                <a class="btn btn-primary btn-sm"
+                   href="">
+                    Registrar nuevo</a>
+            </div>
+            <div>
+                {% if my_products %}
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Categoría</th>
+                            <th>Descripción</th>
+                            <th>Cantidad disponible</th>
+                            <th>Costo</th>
+                            <th>Precio de venta</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for p in my_products %}
+                            <tr>
+                                <td>{{ p.productId }}</td>
+                                <td>{{ p.categoryCode }}</td>
+                                <td>{{ p.description }}</td>
+                                <td>{{ p.quantityAvailable }}</td>
+                                <td>{{ p.Cost }}</td>
+                                <td>{{ p.sellingPrice }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay productos registrados.</p>
+                {% endif %}
+            </div>
         </section>
     </main>
 {% endblock %}

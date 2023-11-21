@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import CategoryProduct, Customers, Orders
+from .models import CategoryProduct, Customer, Order, Product
 from pymongo import MongoClient
 
 
@@ -7,8 +7,8 @@ def create_customer_document(cid, fname, lname, address, dob, email, hphone, cph
     client = MongoClient('localhost', 27017)
     db = client['Parcial3']
     collection = db['test']
-    document = Customers(customerId=cid, firstName=fname, lastName=lname, address=address,
-                         dateOfBirth=dob, email=email, homePhone=hphone, cellPhone=cphone)
+    document = Customer(customerId=cid, firstName=fname, lastName=lname, address=address,
+                        dateOfBirth=dob, email=email, homePhone=hphone, cellPhone=cphone)
     prepared_doc = document.__dict__
     prepared_doc.pop('_state')
     collection.insert_one(prepared_doc)
@@ -16,16 +16,18 @@ def create_customer_document(cid, fname, lname, address, dob, email, hphone, cph
 
 
 def home(request):
-    all_customers = Customers.objects.all()
-    all_orders = Orders.objects.all()
+    all_customers = Customer.objects.all()
+    all_orders = Order.objects.all()
+    all_products = Product.objects.all()
     return render(request, 'home.html', {
         'my_customers': all_customers,
         'my_orders': all_orders,
+        'my_products': all_products,
     })
 
 
 def customers(request):
-    all_customers = Customers.objects.all()
+    all_customers = Customer.objects.all()
     return render(request, 'customers.html', {
         'my_customers': all_customers
     })
@@ -47,24 +49,38 @@ def add_customer(request):
         cellphone = request.POST['cellphone']
         create_customer_document(customer_id, first_name, last_name, address, date_of_birth,
                                  email, homephone, cellphone)
-        Customers.objects.create(customerId=customer_id, firstName=first_name, lastName=last_name,
-                                 address=address, dateOfBirth=date_of_birth, email=email,
-                                 homePhone=homephone, cellPhone=cellphone)
+        Customer.objects.create(customerId=customer_id, firstName=first_name, lastName=last_name,
+                                address=address, dateOfBirth=date_of_birth, email=email,
+                                homePhone=homephone, cellPhone=cellphone)
         return redirect('customers')
 
 
 def orders(request):
-    all_orders = Orders.objects.all()
+    all_orders = Order.objects.all()
     return render(request, 'orders.html', {
         'my_orders': all_orders
     })
 
 
 def render_add_order(request):
-    all_customers = Customers.objects.all()
-    return render(request, 'add_order.html', {
-        'my_customers': all_customers
-    })
+    if request.method == 'GET':
+        all_customers = Customer.objects.all()
+        return render(request, 'add_order.html', {
+            'my_customers': all_customers
+        })
+    elif request.method == 'POST':
+        order_number = request.POST['order_id']
+        customer_id = request.POST['customer_id']
+        order_date = request.POST['order_date']
+        shipped_date = request.POST['shipped_date']
+        payment_date = request.POST['payment_date']
+
+        customer = Customer.objects.get(customerId=customer_id)
+
+        Order.objects.create(orderNumber=int(order_number), customerid=customer,
+                             orderDate=order_date, shippedDate=shipped_date, paymentDate=payment_date)
+
+        return redirect('orders')
 
 
 def products(request):

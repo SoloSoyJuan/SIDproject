@@ -4,7 +4,37 @@
     <header class="container">
         <h1 class="text-center">Pedidos</h1>
     </header>
-    <main>
-
+    <main class="container">
+        <section class="mb-2">
+            <a class="btn btn-primary" href="{% url 'view_add_order' %}">
+                Registrar pedido
+            </a>
+        </section>
+        {% if my_orders %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Número de pedido</th>
+                        <th>Número de identificación del cliente</th>
+                        <th>Fecha del pedido</th>
+                        <th>Fecha de envió</th>
+                        <th>Fecha de pago</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in my_orders %}
+                        <tr>
+                            <td>{{ order.orderNumber }}</td>
+                            <td>{{ order.customerid }}</td>
+                            <td>{{ order.orderDate }}</td>
+                            <td>{{ order.shippedDate }}</td>
+                            <td>{{ order.paymentDate }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay pedidos registrados...</p>
+        {% endif %}
     </main>
 {% endblock %}
