@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header class="container">
+        <h1 class="text-center">Selecciona el cliente</h1>
+    </header>
+    <main class="container-fluid mt-3 w-50">
+        <form method="POST" action="" class="border border-black">
+            {% csrf_token %}
+            <div class="p-2">
+                <label for="c_ids">Elije al cliente:</label><br>
+                <select id="c_ids" name="customer_id" size="5" style="width: 350px">
+                    {% for customer in my_customers %}
+                        <option value="{{ customer.customerId }}">
+                            {{ customer.customerId }}<span> | </span>{{ customer.firstName }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input class="m-2 btn btn-success" type="submit" value="Seleccionar">
+        </form>
+    </main>
+{% endblock %}

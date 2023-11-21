@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header class="container">
+        <h1 class="text-center">Datos adicionales del cliente {{ customer_data.firstName }}</h1>
+    </header>
+    <main class="container-fluid mt-3 w-50">
+        <form method="POST" action="{% url 'add_more_data_customer' %}" class="border border-black">
+            {% csrf_token %}
+            <input type="hidden" name="customer" value="{{ customer_data.customerId }}">
+            <fieldset class="p-2">
+                <legend>Datos del hijo</legend>
+                <div class="mb-2">
+                    <label for="fname">Nombre completo:<br>
+                        <input type="text" id="fname" size="40" name="full_name">
+                    </label>
+                </div>
+                <div class="mb-2">
+                    <label for="fdob">Fecha de nacimiento:<br>
+                        <input type="date" id="fdob" size="40" name="dob">
+                    </label>
+                </div>
+                <div class="mb-2">
+                    <label for="fgen">Genero:<br>
+                        <input type="text" id="fgen" size="40" name="gender">
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset class="p-2">
+                <legend>Datos lugar de nacimiento</legend>
+                <div class="mb-2">
+                    <label for="fgen">Municipio/Ciudad:<br>
+                        <input type="text" id="fgen" size="40" name="mun_or_ci">
+                    </label>
+                    <label for="fgen">Departamento/Estado:<br>
+                        <input type="text" id="fgen" size="40" name="dep_or_sta">
+                    </label>
+                    <label for="fgen">País:<br>
+                        <input type="text" id="fgen" size="40" name="country">
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset class="p-2">
+                <legend>Datos lugar de residencia</legend>
+                <div class="mb-2">
+                    <label for="fgen">Municipio/Ciudad:<br>
+                        <input type="text" id="fgen" size="40" name="mun_or_ci_1">
+                    </label>
+                    <label for="fgen">Departamento/Estado:<br>
+                        <input type="text" id="fgen" size="40" name="dep_or_sta_1">
+                    </label>
+                    <label for="fgen">País:<br>
+                        <input type="text" id="fgen" size="40" name="country_1">
+                    </label>
+                    <label for="fgen">Código postal:<br>
+                        <input type="text" id="fgen" size="40" name="post_code">
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset class="p-2">
+                <legend>Gustos o hobbies</legend>
+                <div class="mb-2">
+                    <label for="fgen">Hobbies:<br>
+                        <input type="text" id="fgen" size="40" name="hobbie">
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset class="p-2">
+                <legend>Deporte(s) que practica</legend>
+                <div class="mb-2">
+                    <label for="fgen">Deporte:<br>
+                        <input type="text" id="fgen" size="40" name="sport">
+                    </label>
+                </div>
+            </fieldset>
+            <div class="m-2">
+                <input class="mt-2 btn btn-success" type="submit" value="Guardar">
+            </div>
+        </form>
+    </main>
+{% endblock %}

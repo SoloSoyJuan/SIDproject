@@ -55,6 +55,53 @@ def add_customer(request):
         return redirect('customers')
 
 
+def add_more_data_customer(request):
+    client = MongoClient('localhost', 27017)
+    db = client['Parcial3']
+    my_collection = db['test']
+    if request.method == 'POST':
+        customer_id = request.POST['customer']
+        criterio = {'customerId': customer_id}
+        new_data = {
+            'son': {
+                'name': request.POST['full_name'],
+                'date_of_birth': request.POST['dob'],
+                'gender': request.POST['gender']
+            },
+            'place_of_birth': {
+                'mun_or_ci': request.POST['mun_or_ci'],
+                'dep_or_state': request.POST['dep_or_sta'],
+                'country': request.POST['country']
+            }
+        }
+        result = my_collection.update_one(criterio, {'$set': new_data})
+        if result.modified_count > 0:
+            print("Datos agregados correctamente al documento")
+        else:
+            print("No se encontró el documento o no se realizaron cambios")
+        client.close()
+        return redirect('customers')
+    else:
+        return redirect('customers')
+
+
+def select_customer(request):
+    if request.method == 'GET':
+        all_customers = Customer.objects.all()
+        return render(request, 'select_customer.html', {
+            'my_customers': all_customers,
+        })
+    elif request.method == 'POST':
+        customer_id = request.POST['customer_id']
+        customer = Customer.objects.get(customerId=customer_id)
+        if customer is None:
+            return redirect('customers')
+        else:
+            return render(request, 'add_more_data_customer.html', {
+                'customer_data': customer,
+            })
+
+
 def orders(request):
     all_orders = Order.objects.all()
     return render(request, 'orders.html', {
