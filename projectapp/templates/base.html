@@ -8,6 +8,42 @@
     <title>ABC Electronics</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-sm bg-primary">
+    <div class="container-fluid">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link text-light"
+                   href="{% url 'home' %}">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light"
+                   href="{% url 'customers' %}">
+                    Clientes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light"
+                   href="{% url 'orders' %}">
+                    Pedidos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light"
+                   href="{% url 'products' %}">
+                    Productos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light"
+                   href="{% url 'categories' %}">
+                    Categorías
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 {% block content %}
 {% endblock %}
 </body>
